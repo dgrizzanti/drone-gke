@@ -50,6 +50,7 @@ jobs:
         context: .
         platforms: linux/amd64
         push: false
+        auto_tag: true
         
     - name: Docker Build & Release
       if: github.event_name == 'push'
@@ -58,4 +59,4 @@ jobs:
         context: .
         platforms: linux/amd64
         push: true
-        tags: dgrizzanti/drone-gke:latest
+        auto_tag: true
