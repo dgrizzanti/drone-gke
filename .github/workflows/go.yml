@@ -32,6 +32,8 @@ jobs:
         export GO111MODULE=on
         export CGO_ENABLED=0
         export GOPROXY=https://proxy.golang.org
+        echo "${GITHUB_REF_NAME}"
+        echo "${GITHUB_SHA}"
         go build -a -ldflags "-X main.version=n/a -X main.rev=${GITHUB_SHA}"
         
     - name: Login to Docker Hub
@@ -41,7 +43,7 @@ jobs:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_PASS }}
         
-    - name: Build Dry Run
+    - name: Docker Dry Run
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v4
       with:
@@ -49,7 +51,7 @@ jobs:
         platforms: linux/amd64
         push: false
         
-    - name: Build & Release
+    - name: Docker Build & Release
       if: github.event_name == 'push'
       uses: docker/build-push-action@v4
       with:
