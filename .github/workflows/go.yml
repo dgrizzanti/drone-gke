@@ -36,7 +36,16 @@ jobs:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_PASS }}
         
-    - name: Build docker
+    - name: Build Dry Run
+      if: github.event_name == 'tag'
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        platforms: linux/amd64
+        push: false
+        
+    - name: Build & Release
+      if: github.event_name == 'tag'
       uses: docker/build-push-action@v4
       with:
         context: .
