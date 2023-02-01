@@ -37,7 +37,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASS }}
         
     - name: Build Dry Run
-      if: github.event_name == 'tag'
+      if: github.event_name != 'tag'
       uses: docker/build-push-action@v4
       with:
         context: .
