@@ -41,5 +41,5 @@ jobs:
       with:
         context: .
         platforms: linux/amd64
-        push: false
+        push: true
         tags: latest
