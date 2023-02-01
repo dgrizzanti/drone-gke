@@ -30,3 +30,11 @@ jobs:
         export CGO_ENABLED=0
         export GOPROXY=https://proxy.golang.org
         go build -a -ldflags "-X main.version=n/a -X main.rev=${GITHUB_SHA}"
+        
+    - name: Build docker
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        platforms: linux/amd64
+        push: false
+        tags: latest
